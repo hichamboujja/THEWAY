@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.grid > :last-child {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

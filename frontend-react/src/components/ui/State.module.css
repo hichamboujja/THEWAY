@@ -1,0 +1,59 @@
+.state {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 28px;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.state h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.state p,
+.inlineError p,
+.compact p {
+  margin: 0;
+}
+
+.compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+.inlineError {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 12px;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.inlineError h3 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,37 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+}
+
+.pagination p {
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controls span {
+  min-width: 96px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .pagination {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+}

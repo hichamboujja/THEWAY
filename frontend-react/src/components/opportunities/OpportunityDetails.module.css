@@ -1,0 +1,43 @@
+.details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 16px;
+}
+
+.main {
+  display: grid;
+  gap: 18px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.actions,
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.description {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 900px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    display: grid;
+  }
+}

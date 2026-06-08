@@ -1,0 +1,109 @@
+.tw-action-disabled {
+    cursor: wait !important;
+    opacity: .72 !important;
+}
+
+.tw-action-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, .42);
+    padding: 18px;
+}
+
+.tw-action-modal {
+    width: min(420px, 100%);
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 22px 55px rgba(15, 23, 42, .22);
+    padding: 20px;
+    font-family: inherit;
+    color: #1e293b;
+}
+
+.tw-action-modal h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tw-action-modal p {
+    margin: 0 0 16px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.tw-action-modal input {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font: inherit;
+    margin-bottom: 16px;
+    outline: none;
+}
+
+.tw-action-modal input:focus {
+    border-color: #f59e0b;
+}
+
+.tw-action-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.tw-action-modal-actions button {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+}
+
+.tw-action-modal-actions .tw-primary {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #fff;
+}
+
+.tw-action-modal-actions .tw-danger {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: #fff;
+}
+
+.tw-popover {
+    position: fixed;
+    z-index: 9998;
+    min-width: 160px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, .16);
+    overflow: hidden;
+}
+
+.tw-popover button {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 13px;
+    color: #1e293b;
+    cursor: pointer;
+}
+
+.tw-popover button:hover {
+    background: #f8fafc;
+}

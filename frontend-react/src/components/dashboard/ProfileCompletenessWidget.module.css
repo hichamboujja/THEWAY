@@ -1,0 +1,153 @@
+.widget {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 58%);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 104px;
+  gap: 16px;
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  margin: 6px 0 6px;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.header p,
+.item p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: conic-gradient(var(--primary) var(--progress), var(--muted) 0);
+}
+
+.ring::before {
+  content: "";
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.ring span {
+  position: relative;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.progressTrack {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-height: 82px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.item:hover {
+  border-color: var(--primary);
+}
+
+.item svg {
+  margin-top: 1px;
+  color: var(--text-muted);
+}
+
+.item strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.item p {
+  font-size: 13px;
+}
+
+.done {
+  border-color: rgba(34, 197, 94, 0.24);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.done svg {
+  color: #15803d;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding-top: 2px;
+}
+
+@media (max-width: 640px) {
+  .header,
+  .checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .ring {
+    width: 92px;
+    height: 92px;
+  }
+
+  .ring::before {
+    width: 68px;
+    height: 68px;
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

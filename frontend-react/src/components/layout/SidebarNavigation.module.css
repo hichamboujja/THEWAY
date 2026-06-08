@@ -1,0 +1,104 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+  padding: 20px 16px;
+  background: #0a1628;
+  color: #fff;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+}
+
+.brandIcon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand small {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.nav {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.section {
+  display: grid;
+  gap: 4px;
+}
+
+.sectionLabel {
+  display: block;
+  padding: 0 12px 6px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.link {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.74);
+  border-radius: 8px;
+  font-weight: 750;
+}
+
+.link:hover,
+.active {
+  color: #fff;
+  background: #17233a;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(320px, calc(100vw - 48px));
+    height: 100vh;
+    padding: 18px 14px;
+    box-shadow: 24px 0 60px rgba(2, 6, 23, 0.3);
+    transform: translateX(-104%);
+    transition: transform 200ms ease;
+  }
+
+  .open {
+    transform: translateX(0);
+  }
+
+  .nav {
+    display: grid;
+    gap: 6px;
+    overflow-y: auto;
+    padding-right: 2px;
+  }
+
+  .link {
+    min-height: 46px;
+  }
+}

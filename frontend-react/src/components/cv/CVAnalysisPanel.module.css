@@ -1,0 +1,37 @@
+.panel {
+  display: grid;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.header h3,
+.header p,
+.muted,
+.error {
+  margin: 0;
+}
+
+.error {
+  padding: 12px;
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.result {
+  display: grid;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .header {
+    display: grid;
+  }
+}

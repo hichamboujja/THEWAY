@@ -1,0 +1,269 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stat {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 6px 12px;
+  align-items: center;
+  min-height: 126px;
+}
+
+.stat svg {
+  grid-row: span 3;
+  width: 38px;
+  height: 38px;
+  padding: 9px;
+  border-radius: 8px;
+  background: var(--muted);
+  color: var(--secondary);
+}
+
+.stat span {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stat strong {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.stat p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.danger svg {
+  background: #fef2f2;
+  color: var(--danger);
+}
+
+.warning svg {
+  background: #fff7ed;
+  color: var(--warning);
+}
+
+.consoleGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.85fr) minmax(240px, 0.85fr);
+  gap: 16px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 180px 180px auto;
+  gap: 10px;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+.searchBox {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.searchBox svg {
+  color: var(--text-muted);
+}
+
+.searchBox input {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+.inboxPanel,
+.statusPanel,
+.loadPanel,
+.tableCard {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.panelTitle,
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panelTitle {
+  justify-content: flex-start;
+  font-weight: 900;
+}
+
+.ticketStack,
+.loadGrid {
+  display: grid;
+  gap: 8px;
+}
+
+.ticketPreview,
+.loadMetric {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  min-height: 52px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.ticketPreview strong,
+.subjectCell strong,
+.userCell strong {
+  color: var(--text);
+}
+
+.ticketPreview p,
+.empty,
+.subjectCell span,
+.userCell span,
+.tableHeader p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.statusRow {
+  display: grid;
+  gap: 7px;
+}
+
+.statusRow div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.statusRow span,
+.loadMetric span {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.statusRow i {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.statusRow b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.success b {
+  background: var(--success);
+}
+
+.warning b {
+  background: var(--warning);
+}
+
+.danger b {
+  background: var(--danger);
+}
+
+.loadMetric strong {
+  font-size: 22px;
+}
+
+.tableCard {
+  overflow: hidden;
+}
+
+.tableHeader h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.subjectCell {
+  display: grid;
+  gap: 4px;
+  min-width: 260px;
+}
+
+.subjectCell span {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 420px;
+  font-size: 13px;
+  line-height: 1.35;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.userCell {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  min-width: 210px;
+}
+
+.userCell svg {
+  color: var(--secondary);
+  margin-top: 2px;
+}
+
+.userCell div {
+  display: grid;
+  gap: 3px;
+}
+
+.dateText {
+  color: var(--text-muted);
+  font-weight: 750;
+}
+
+@media (max-width: 1120px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .consoleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .statsGrid,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

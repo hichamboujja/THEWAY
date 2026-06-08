@@ -1,0 +1,17 @@
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel h3,
+.panel p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .panel {
+    display: grid;
+  }
+}

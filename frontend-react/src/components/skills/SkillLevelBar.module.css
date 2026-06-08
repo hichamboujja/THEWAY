@@ -1,0 +1,51 @@
+.wrap {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 44px;
+  align-items: center;
+  gap: 10px;
+}
+
+.track {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.sm {
+  height: 8px;
+}
+
+.md {
+  height: 10px;
+}
+
+.lg {
+  height: 12px;
+}
+
+.track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 180ms ease;
+}
+
+.weak span {
+  background: var(--warning);
+}
+
+.steady span {
+  background: var(--secondary);
+}
+
+.strong span {
+  background: var(--success);
+}
+
+.value {
+  color: var(--text);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}

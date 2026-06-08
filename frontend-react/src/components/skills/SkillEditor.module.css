@@ -1,0 +1,187 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat svg {
+  grid-row: span 2;
+  color: var(--primary);
+}
+
+.stat span {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.stat strong {
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+.form h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.form p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 800;
+}
+
+.formScore {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 10px;
+}
+
+.formScore input,
+.range {
+  min-height: auto;
+  padding: 0;
+  accent-color: var(--primary);
+}
+
+.formScore strong {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 180px;
+  gap: 10px;
+}
+
+.search {
+  position: relative;
+}
+
+.search svg {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  color: var(--text-muted);
+  transform: translateY(-50%);
+}
+
+.search input {
+  padding-left: 38px;
+}
+
+.skillName {
+  display: grid;
+  gap: 4px;
+}
+
+.skillName strong {
+  color: var(--text);
+}
+
+.skillName span,
+.category {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.weakText {
+  color: var(--warning) !important;
+}
+
+.inlineInput {
+  min-width: 150px;
+}
+
+.scoreEditor {
+  display: grid;
+  min-width: 260px;
+  gap: 8px;
+}
+
+.recommendation,
+.recommendationWeak {
+  max-width: 360px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.recommendationWeak {
+  color: var(--warning);
+  font-weight: 800;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .stats,
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

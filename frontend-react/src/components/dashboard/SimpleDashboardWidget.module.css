@@ -1,0 +1,141 @@
+.widget,
+.wideWidget {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.wideWidget {
+  grid-column: span 2;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+}
+
+.header strong {
+  font-size: 22px;
+}
+
+.list {
+  display: grid;
+  gap: 9px;
+}
+
+.row,
+.note {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.row:hover {
+  border-color: var(--primary);
+}
+
+.row strong,
+.note strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row p,
+.note p,
+.insight p,
+.empty {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.row > span {
+  color: #b45309;
+  font-weight: 900;
+}
+
+.empty {
+  padding: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.insight {
+  display: grid;
+  gap: 5px;
+  min-height: 104px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.insight span {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.insight strong {
+  overflow-wrap: anywhere;
+  font-size: 20px;
+}
+
+.promptList {
+  display: grid;
+  gap: 8px;
+}
+
+.promptList span {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .wideWidget {
+    grid-column: 1 / -1;
+  }
+
+  .insightsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .insightsGrid {
+    grid-template-columns: 1fr;
+  }
+}

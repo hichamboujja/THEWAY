@@ -1,0 +1,16 @@
+{
+  "name": "theway",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:api": "npm --prefix API run dev",
+    "dev:frontend": "npm --prefix frontend-react run dev",
+    "build:frontend": "npm --prefix frontend-react run build",
+    "start:api": "npm --prefix API start",
+    "migrate": "npm --prefix API run migrate",
+    "seed": "npm --prefix API run seed"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

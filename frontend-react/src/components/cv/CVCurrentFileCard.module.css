@@ -1,0 +1,10 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.card h3,
+.card p {
+  margin: 0;
+}

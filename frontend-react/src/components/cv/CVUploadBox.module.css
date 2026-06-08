@@ -1,0 +1,10 @@
+.box {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.box h3,
+.box p {
+  margin: 0;
+}

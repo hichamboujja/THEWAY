@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--text);
+  background: var(--surface);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+textarea {
+  min-height: 110px;
+  padding-top: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(245, 158, 11, 0.24);
+  border-color: var(--primary);
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,25 @@
+.card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.content {
+  display: grid;
+  gap: 6px;
+}
+
+.card h3,
+.card p {
+  margin: 0 0 6px;
+}
+
+.title {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.title:hover {
+  color: var(--primary-hover);
+}
