@@ -45,7 +45,7 @@
 
 .widgetsGrid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1.25fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 28px;
 }

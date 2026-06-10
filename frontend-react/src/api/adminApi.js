@@ -21,6 +21,8 @@ export async function getPanelSummary() {
     recentOpportunities: data?.recentOpportunities || data?.recentOffers || [],
     recentUsers: data?.recentUsers || [],
     latestNotifications: data?.latestNotifications || [],
+    importJobs: data?.importJobs || [],
+    recentActivity: data?.recentActivity || [],
     progression: data?.progression || {}
   };
 }

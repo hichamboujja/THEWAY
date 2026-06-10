@@ -537,6 +537,20 @@ module.exports = function createProductionRouter(deps) {
         ok(res, { match: rows[0] });
     }));
 
+    router.post('/api/ai/coach', requireAuth, rate.ai, asyncRoute(async (req, res) => {
+        const cv = await latestCv(getConnection, req.userId);
+        const analysis = cv ? await latestCvAnalysis(getConnection, req.userId, cv.id_cv) : null;
+        const skills = skillNamesFromInput(req.body && req.body.skills);
+        const storedSkills = skills.length ? skills : await userSkillNames(getConnection, req.userId);
+        const bestMatch = await latestBestMatch(getConnection, req.userId) || req.body && req.body.bestMatch || null;
+        const suggestions = await ai.coachSuggestions({
+            skills: storedSkills,
+            summary: cleanNullable(req.body && req.body.cvSummary) || analysis && analysis.summary || cv && cv.scann_analyse || '',
+            bestMatch
+        });
+        ok(res, { tips: suggestions.tips, promptVersion: suggestions.promptVersion });
+    }));
+
     router.get('/api/settings/user', requireAuth, asyncRoute(async (req, res) => {
         const [rows] = await query(getConnection, 'SELECT setting_key, value_json FROM user_setting WHERE id_user = ?', [req.userId]);
         ok(res, { settings: objectFromSettings(rows) });
@@ -1234,6 +1248,45 @@ async function latestCvAnalysis(getConnection, userId, idCv) {
 async function userSkillNames(getConnection, userId) {
     const [rows] = await query(getConnection, 'SELECT c.nom FROM user_skill us JOIN competence c ON c.id_skill = us.id_skill WHERE us.id_user = ?', [userId]);
     return rows.map(row => row.nom);
+}
+
+function skillNamesFromInput(skills) {
+    if (!Array.isArray(skills)) return [];
+    return Array.from(new Set(skills.map(skill => {
+        if (typeof skill === 'string') return skill;
+        return skill && (skill.nom || skill.name || skill.label);
+    }).map(skill => String(skill || '').trim()).filter(Boolean))).slice(0, 25);
+}
+
+async function latestBestMatch(getConnection, userId) {
+    const latestRunSql = `SELECT id_matching_run
+            FROM matching_run
+            WHERE id_user = ?
+            ORDER BY completed_at DESC, created_at DESC
+            LIMIT 1`;
+    const [rows] = await query(
+        getConnection,
+        `SELECT mr.score, mr.matched_skills, mr.missing_skills, mr.explanation, o.title, o.company, o.location, o.skills
+         FROM matching_result mr
+         JOIN (${latestRunSql}) latest ON latest.id_matching_run = mr.id_matching_run
+         LEFT JOIN opportunities o ON o.id = mr.opportunity_id
+         WHERE mr.id_user = ?
+         ORDER BY mr.score DESC, mr.created_at DESC
+         LIMIT 1`,
+        [userId, userId]
+    );
+    if (!rows.length) return null;
+    const row = rows[0];
+    return {
+        title: row.title,
+        company: row.company,
+        location: row.location,
+        score: row.score,
+        skills: parseSkills(row.skills),
+        matchedSkills: safeJson(row.matched_skills, []),
+        missingSkills: safeJson(row.missing_skills, []),
+        explanation: row.explanation
+    };
 }
 
 async function findMatchingRunByKey(getConnection, userId, key) {

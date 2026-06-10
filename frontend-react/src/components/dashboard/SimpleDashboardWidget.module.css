@@ -73,6 +73,26 @@
   line-height: 1.45;
 }
 
+.noteHeader,
+.noteMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.noteHeader span {
+  flex: 0 0 auto;
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.noteMeta {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
 .row > span {
   color: #b45309;
   font-weight: 900;

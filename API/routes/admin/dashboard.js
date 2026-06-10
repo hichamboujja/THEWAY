@@ -41,6 +41,18 @@ module.exports = function createAdminDashboardRouter(deps) {
                 const [latestNotifications] = await connection.execute(
                     'SELECT id_notification, type, message, date_notification, lu FROM notification ORDER BY date_notification DESC LIMIT 8'
                 );
+                const [importJobs] = await connection.execute(
+                    `SELECT id_import_job, source, status, imported_count, error_message, created_at, completed_at
+                     FROM import_job
+                     ORDER BY COALESCE(completed_at, created_at) DESC, created_at DESC
+                     LIMIT 5`
+                );
+                const [recentActivity] = await connection.execute(
+                    `SELECT action, entity_type, entity_id, created_at
+                     FROM audit_log
+                     ORDER BY created_at DESC
+                     LIMIT 8`
+                );
                 const [progressionStats] = await connection.execute(
                     'SELECT COUNT(*) AS total, AVG(score_globale) AS average_score, MAX(date_progression) AS last_progression FROM progression'
                 );
@@ -61,6 +73,8 @@ module.exports = function createAdminDashboardRouter(deps) {
                     recentOffers: recentOffers.map(publicOffer),
                     recentOpportunities: recentOpportunities.map(publicOpportunity),
                     latestNotifications: latestNotifications,
+                    importJobs: importJobs.map(publicImportJob),
+                    recentActivity: recentActivity.map(publicActivity),
                     progression: {
                         total: Number(progressionStats[0] && progressionStats[0].total) || 0,
                         averageScore: Math.round(Number(progressionStats[0] && progressionStats[0].average_score) || 0),
@@ -118,6 +132,28 @@ function publicOpportunity(row) {
         location: row.location,
         source: row.source,
         skills: parseSkills(row.skills),
+        created_at: row.created_at
+    };
+}
+
+function publicImportJob(row) {
+    return {
+        id: row.id_import_job,
+        id_import_job: row.id_import_job,
+        source: row.source,
+        status: row.status,
+        imported_count: Number(row.imported_count) || 0,
+        error_message: row.error_message,
+        created_at: row.created_at,
+        completed_at: row.completed_at
+    };
+}
+
+function publicActivity(row) {
+    return {
+        action: row.action,
+        entity_type: row.entity_type,
+        entity_id: row.entity_id,
         created_at: row.created_at
     };
 }

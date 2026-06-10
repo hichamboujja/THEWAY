@@ -3,6 +3,7 @@ const { httpError } = require('../lib/response');
 
 const CV_PROMPT_VERSION = 'cv-analysis-v1';
 const MATCHING_PROMPT_VERSION = 'matching-v1';
+const COACH_PROMPT_VERSION = 'coach-v1';
 
 function ensureConfigured() {
     if (isLocalProvider()) return;
@@ -116,6 +117,34 @@ async function chatJson(messages) {
     }
 }
 
+async function coachSuggestions(profile) {
+    ensureConfigured();
+    if (isLocalProvider()) return localCoachSuggestions(profile);
+
+    const response = await chatJson([
+        {
+            role: 'system',
+            content: 'You are a practical career coach. Respond only with valid JSON.'
+        },
+        {
+            role: 'user',
+            content: JSON.stringify({
+                instruction: 'Return JSON: { tips: string[] }. Give 3 to 5 concise, actionable tips in French for this candidate.',
+                candidateSkills: profile.skills || [],
+                cvSummary: profile.summary || '',
+                bestMatch: profile.bestMatch || null
+            })
+        }
+    ]);
+
+    return {
+        promptVersion: COACH_PROMPT_VERSION,
+        providerResponseId: response.id || null,
+        tips: normaliseTips(response.json.tips),
+        raw: response.json
+    };
+}
+
 function localCvAnalysis(text) {
     const source = String(text || '');
     const knownSkills = [
@@ -183,6 +212,48 @@ function localOpportunityRanking(profile) {
     };
 }
 
+function localCoachSuggestions(profile) {
+    const skills = normaliseSkillList(profile.skills || []);
+    const bestMatch = profile.bestMatch || {};
+    const missingSkills = normaliseSkillList(bestMatch.missingSkills || bestMatch.missing_skills || []);
+    const matchedSkills = normaliseSkillList(bestMatch.matchedSkills || bestMatch.matched_skills || []);
+    const tips = [];
+
+    if (profile.summary) {
+        tips.push('Transforme le resume de ton CV en 3 resultats mesurables lies au poste vise.');
+    } else {
+        tips.push('Ajoute un resume court a ton CV pour clarifier ton profil et ton objectif.');
+    }
+    if (skills.length) {
+        tips.push(`Mets en avant tes competences les plus fortes: ${skills.slice(0, 3).join(', ')}.`);
+    } else {
+        tips.push('Renseigne au moins 5 competences prioritaires pour obtenir des recommandations plus precises.');
+    }
+    if (missingSkills.length) {
+        tips.push(`Priorise une montee en competence sur ${missingSkills.slice(0, 2).join(' et ')}.`);
+    } else if (matchedSkills.length) {
+        tips.push(`Prepare des exemples concrets autour de ${matchedSkills.slice(0, 2).join(' et ')} pour ton prochain entretien.`);
+    } else {
+        tips.push('Lance un matching pour identifier les ecarts entre ton profil et les offres recentes.');
+    }
+    if (bestMatch.title || bestMatch.company) {
+        tips.push(`Adapte ton CV a ${[bestMatch.title, bestMatch.company].filter(Boolean).join(' chez ')} avant de postuler.`);
+    }
+
+    return {
+        promptVersion: `${COACH_PROMPT_VERSION}-local`,
+        providerResponseId: 'local-coach',
+        tips: tips.slice(0, 5),
+        raw: {}
+    };
+}
+
+function normaliseTips(value) {
+    return Array.isArray(value)
+        ? value.map(item => String(item || '').trim()).filter(Boolean).slice(0, 5)
+        : [];
+}
+
 function normaliseSkillList(skills) {
     return Array.from(new Set(skills
         .map(skill => String(skill || '').trim())
@@ -204,6 +275,8 @@ function sanitiseProviderError(payload) {
 module.exports = {
     analyseCvText,
     rankOpportunities,
+    coachSuggestions,
     CV_PROMPT_VERSION,
-    MATCHING_PROMPT_VERSION
+    MATCHING_PROMPT_VERSION,
+    COACH_PROMPT_VERSION
 };

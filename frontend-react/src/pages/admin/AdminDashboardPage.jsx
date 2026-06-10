@@ -17,7 +17,12 @@ export default function AdminDashboardPage() {
       {error ? <ErrorState message={error} onRetry={reload} /> : loading ? <LoadingState /> : (
         <div className={styles.stack}>
           <AdminStatsGrid summary={data?.summary} />
-          <AdminDashboardWidgets summary={data?.summary} offers={data?.recentOpportunities || []} />
+          <AdminDashboardWidgets
+            summary={data?.summary}
+            offers={data?.recentOpportunities || []}
+            importJobs={data?.importJobs || []}
+            recentActivity={data?.recentActivity || []}
+          />
           <OfferTable offers={data?.recentOpportunities || []} />
         </div>
       )}

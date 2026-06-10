@@ -1,177 +1,118 @@
 # TheWay
 
-TheWay est une plateforme SaaS CareerTech pour aider les candidats à améliorer leur profil, analyser leur CV, suivre leurs compétences et trouver les meilleures opportunités grâce au matching intelligent.
+TheWay is a CareerTech SaaS for candidates who want to understand their profile, improve their CV, track skills, match with relevant job opportunities, and manage applications from one dashboard.
 
-Le produit combine un espace candidat, un espace administrateur, une API sécurisée, une base MySQL, un système de fichiers local ou S3, des widgets de progression, un suivi des candidatures et des outils d'administration.
+The product includes a React candidate experience, an admin console, an Express API, MySQL persistence, CV/file storage, AI-assisted CV analysis and matching, notifications, audit logs, import job tracking, support, and billing foundations.
 
-## Sommaire
+## Contents
 
-- [Vision du SaaS](#vision-du-saas)
-- [Fonctionnalités](#fonctionnalites)
-- [Parcours utilisateur](#parcours-utilisateur)
-- [Parcours administrateur](#parcours-administrateur)
+- [Product Scope](#product-scope)
 - [Architecture](#architecture)
-- [Stack technique](#stack-technique)
-- [Structure du projet](#structure-du-projet)
-- [Installation locale](#installation-locale)
-- [Variables d'environnement](#variables-denvironnement)
-- [Base de données](#base-de-donnees)
-- [Commandes utiles](#commandes-utiles)
-- [Routes frontend](#routes-frontend)
-- [API backend](#api-backend)
-- [Sécurité](#securite)
-- [Stockage des fichiers](#stockage-des-fichiers)
-- [Tests et qualité](#tests-et-qualite)
-- [Déploiement](#deploiement)
-- [Roadmap](#roadmap)
+- [Repository Layout](#repository-layout)
+- [Tech Stack](#tech-stack)
+- [Local Setup](#local-setup)
+- [Environment](#environment)
+- [Database](#database)
+- [Common Commands](#common-commands)
+- [Frontend Routes](#frontend-routes)
+- [API Overview](#api-overview)
+- [AI Features](#ai-features)
+- [Admin Operations](#admin-operations)
+- [Files and Storage](#files-and-storage)
+- [Scraping and Imports](#scraping-and-imports)
+- [Security](#security)
+- [Quality Checks](#quality-checks)
+- [Deployment Notes](#deployment-notes)
+- [Current Gaps](#current-gaps)
 
-## Vision du SaaS
+## Product Scope
 
-TheWay aide un candidat à passer de "j'ai un CV" à "je sais quelles compétences améliorer et quelles offres viser".
+TheWay helps candidates answer four practical questions:
 
-Le SaaS répond à quatre problèmes :
+- Is my profile complete enough to apply?
+- Which skills should I improve next?
+- Which opportunities fit my CV and skills best?
+- What should I do next to move applications forward?
 
-- Comprendre la qualité réelle du profil candidat.
-- Identifier les compétences manquantes selon le marché.
-- Matcher les offres avec le CV et les compétences.
-- Donner à l'administrateur une vue claire sur les utilisateurs, offres, skills, support et activité.
+Candidate features:
 
-Positionnement possible :
+- Account registration, login, session restore, and logout.
+- Candidate dashboard with profile completeness, next actions, career score, recommended opportunities, saved offers, market insights, notifications, application pipeline, skill gaps, and AI coach tips.
+- CV upload, current CV display, text extraction, AI CV analysis, and extracted skill synchronization.
+- Skill tracking with user skill levels and scores.
+- Opportunity search, detail pages, bookmarking, and applications.
+- Matching runs that rank opportunities against the candidate profile.
+- Real notification center backed by `notification` and `user_notification`.
+- User settings for profile details and account preferences.
 
-> TheWay is an AI-powered CareerTech SaaS for CV analysis, competency progression and opportunity matching.
+Admin features:
 
-## Fonctionnalités
-
-### Candidat
-
-- Inscription, connexion et session sécurisée.
-- Dashboard candidat avec widgets de progression.
-- Upload et gestion du CV.
-- Analyse CV : lisibilité, structure, mots-clés, préparation ATS et recommandations.
-- Gestion des compétences avec progression.
-- Matching intelligent entre profil candidat et opportunités.
-- Explication des résultats de matching.
-- Recherche et filtrage des opportunités.
-- Sauvegarde d'offres.
-- Candidature à une offre.
-- Pipeline de candidatures : sauvegardées, à candidater, postulées, en cours.
-- Paramètres profil avec photo, identité, contact, localisation et préférences.
-- Notifications liées au CV, matching, offres et messages admin.
-
-### Admin
-
-- Dashboard admin avec statistiques globales.
-- Gestion des utilisateurs.
-- Gestion des offres.
-- Gestion des compétences.
-- Gestion support.
-- Gestion billing / subscriptions.
-- Gestion rôles et permissions.
-- Suivi qualité des offres.
-- Suivi de croissance utilisateurs.
-- Suivi activité récente.
-
-### Widgets principaux
-
-Dashboard candidat :
-
-- `ProfileCompletenessWidget`
-- `NextBestActionWidget`
-- `CareerScoreWidget`
-- `RecommendedOpportunitiesWidget`
-- `SkillGapWidget`
-- `ApplicationPipelineWidget`
-- `SavedOpportunitiesWidget`
-- `MarketInsightsWidget`
-- `NotificationCenterWidget`
-- `AIJobCoachWidget`
-
-CV :
-
-- `CVUploadBox`
-- `CVCurrentFileCard`
-- `CVHealthWidget`
-- `CVAnalysisPanel`
-- `ExtractedSkillsList`
-
-Matching :
-
-- `MatchingRunPanel`
-- `MatchingExplainabilityWidget`
-- `MatchingResultCard`
-- `SkillGapWidget`
-
-Opportunités :
-
-- `SmartSearchBar`
-- `OpportunityFilters`
-- `OpportunityCard`
-- `OpportunityBookmarkButton`
-- `OpportunityApplyButton`
-
-Admin :
-
-- `AdminStatsGrid`
-- `ScraperStatusWidget`
-- `UserGrowthWidget`
-- `OfferQualityWidget`
-- `AdminActivityFeed`
-
-## Parcours utilisateur
-
-1. Le candidat crée un compte.
-2. Il complète son profil dans les paramètres.
-3. Il ajoute une photo et ses informations de contact.
-4. Il importe son CV.
-5. Il lance l'analyse CV.
-6. TheWay extrait ou suggère des compétences.
-7. Le candidat améliore ses compétences via la progression.
-8. Il lance le matching.
-9. Il consulte les opportunités recommandées.
-10. Il sauvegarde les offres intéressantes.
-11. Il postule.
-12. Il suit son pipeline dans le dashboard.
-
-## Parcours administrateur
-
-1. L'admin se connecte avec un compte admin.
-2. Il consulte la santé générale de la plateforme.
-3. Il gère les utilisateurs et rôles.
-4. Il contrôle les offres importées ou créées.
-5. Il vérifie la qualité des offres.
-6. Il gère les compétences du marché.
-7. Il traite les tickets support.
-8. Il suit les abonnements, factures et demandes d'upgrade.
+- Admin dashboard with platform totals, recent opportunities, import job status, audit activity, offer quality, and user growth.
+- User, offer, enterprise, skill, support, notification, subscription, role, invoice, and settings administration.
+- Audit log feed from important backend actions.
+- Import job visibility from `import_job`.
 
 ## Architecture
 
-TheWay est organisé comme un monorepo :
-
-```text
-THEWAY/
-  API/                 Backend Express
-  frontend-react/      Frontend React + Vite
-  database/            SQL schema + migrations
-  assets/              Images, CSS/JS legacy, fichiers importés
-  storage/             Uploads locaux
-  scraping.py          Script de scraping d'opportunités
-  start-dev.ps1        Lancement local API + frontend
-  package.json         Scripts racine
-```
-
-Flux général :
+TheWay is a monorepo with a Vite frontend and an Express API.
 
 ```text
 React frontend
-  -> Axios client
+  -> Axios API client
   -> Express API
   -> MySQL
-  -> storage local ou S3
+  -> local storage or S3-compatible storage
+  -> optional AI provider
 ```
 
-## Stack technique
+The root package only orchestrates scripts. Backend and frontend dependencies live in their own packages.
 
-Frontend :
+## Repository Layout
+
+```text
+.
+  API/                    Express API, services, middleware, scripts, tests
+  frontend-react/         React 18 + Vite application
+  database/               SQL schema and migrations
+  assets/                 Legacy/static assets and imported data locations
+  storage/                Local uploaded files in development
+  scraping.py             Opportunity scraping/import helper
+  start-dev.ps1           Windows helper to start API and frontend
+  package.json            Root convenience scripts
+  .env.example            Minimal root environment example
+```
+
+Backend highlights:
+
+```text
+API/
+  app.js                  Express app composition and route mounting
+  server.js               API server entrypoint
+  lib/                    Config, DB, responses, passwords, logging, migrations
+  middleware/             Auth, CSRF, admin checks, rate limiting
+  routes/production.js    Main production API routes
+  routes/admin/           Admin CRUD/dashboard routes
+  services/               AI, audit, CV text, email, storage
+  scripts/                migrate, seed, static checks
+  tests/                  Jest and Playwright tests
+```
+
+Frontend highlights:
+
+```text
+frontend-react/src/
+  api/                    Axios wrappers for backend resources
+  components/             UI, layout, auth, dashboard, admin, CV, matching
+  context/                Auth/session context
+  hooks/                  Reusable app hooks
+  pages/                  Public, candidate, and admin pages
+  router/                 React Router route table
+  styles/                 Global styles and design tokens
+```
+
+## Tech Stack
+
+Frontend:
 
 - React 18
 - Vite
@@ -180,70 +121,36 @@ Frontend :
 - Lucide React
 - CSS Modules
 
-Backend :
+Backend:
 
 - Node.js 20+
 - Express
 - MySQL2
 - Express Session
-- Argon2
-- Helmet
-- CORS
-- Multer
-- Zod
-- Pino
-- OpenTelemetry
+- Argon2 password hashing
+- Helmet, CORS, CSRF, rate limiting
+- Multer uploads
+- Zod and express-validator validation
+- Pino logging
+- OpenTelemetry hooks
 - Nodemailer
-- PDF/DOC parsing avec `pdf-parse` et `mammoth`
+- `pdf-parse` and `mammoth` for CV text extraction
 
-Base de données :
+Database:
 
-- MySQL
-- Migrations SQL
-- Tables métier candidat, admin, billing, support, matching et audit
+- MySQL 8 or compatible
+- SQL migrations under `database/migrations`
 
-## Structure du projet
+## Local Setup
 
-### Backend
+Prerequisites:
 
-```text
-API/
-  app.js                 Configuration Express et montage des routes
-  server.js              Démarrage serveur
-  lib/                   Config, DB, logger, migrations, rate limit, storage
-  middleware/            Auth, CSRF, rôles
-  routes/                Routes publiques et candidat
-  routes/admin/          Routes admin
-  services/              Auth, CV, AI, email, audit, storage
-  scripts/               migrate, seed, lint, typecheck
-  tests/                 Unit, integration, e2e
-```
-
-### Frontend
-
-```text
-frontend-react/src/
-  api/                   Clients API
-  components/            UI, layout, dashboard, CV, matching, admin
-  context/               Auth context
-  hooks/                 Hooks applicatifs
-  pages/                 Pages index, auth, user, admin
-  router/                Routing React
-  styles/                Design system global
-```
-
-## Installation locale
-
-### Prérequis
-
-- Node.js 20 ou plus
+- Node.js 20 or newer
 - npm
-- MySQL 8 ou compatible
-- PowerShell sur Windows si vous utilisez `start-dev.ps1`
+- MySQL 8 or compatible
+- PowerShell if using `start-dev.ps1` on Windows
 
-### 1. Installer les dépendances
-
-Depuis la racine :
+Install dependencies:
 
 ```bash
 npm install
@@ -251,21 +158,55 @@ npm --prefix API install
 npm --prefix frontend-react install
 ```
 
-### 2. Configurer l'environnement
-
-Copier `.env.example` vers `.env` :
+Create a local environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Sur Windows PowerShell :
+PowerShell:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Adapter les valeurs MySQL :
+Create the database:
+
+```sql
+CREATE DATABASE theway CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Run migrations and seed data:
+
+```bash
+npm run migrate
+npm run seed
+```
+
+Start the app:
+
+```bash
+npm run dev:api
+npm run dev:frontend
+```
+
+Or on Windows:
+
+```powershell
+.\start-dev.ps1
+```
+
+Default local URLs:
+
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:3001`
+- API health: `http://localhost:3001/health`
+
+## Environment
+
+The root `.env` is loaded first by the API. An `API/.env` file can override it.
+
+Minimal local variables:
 
 ```env
 NODE_ENV=development
@@ -279,125 +220,61 @@ DB_PASSWORD=
 DB_NAME=theway
 ```
 
-### 3. Créer la base MySQL
+Important production variables:
 
-```sql
-CREATE DATABASE theway CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
+| Variable | Purpose |
+| --- | --- |
+| `NODE_ENV` | Runtime environment. Use `production` in production. |
+| `PORT` | API port. |
+| `APP_BASE_URL` | Public API base URL. |
+| `CLIENT_BASE_URL` | Public frontend base URL. |
+| `CORS_ORIGIN` | Allowed frontend origin(s). |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | MySQL connection. |
+| `COOKIE_SECRET` | Session cookie secret. Required for real deployments. |
+| `CSRF_SECRET` | CSRF signing secret. Required for real deployments. |
+| `STORAGE_DRIVER` | `local` or S3-compatible storage. |
+| `LOCAL_UPLOAD_DIR` | Local upload directory when using local storage. |
+| `AI_PROVIDER`, `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL` | Optional AI provider configuration. |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD` | SMTP email delivery. |
+| `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_PASSWORD` | Optional initial admin account. |
 
-### 4. Exécuter les migrations
+In local/mock/test AI mode, AI service functions use deterministic local fallbacks instead of calling an external model.
+
+## Database
+
+Database files live in `database/`.
+
+Core migrations:
+
+- `001_admin_tables.sql`: admin-era base tables.
+- `002_production_core.sql`: production additions for roles, sessions, files, saved opportunities, applications, CV analysis, matching, support, billing, settings, audit logs, and import jobs.
+
+Important tables:
+
+- Identity and auth: `utilisateur`, `roles`, `permissions`, `user_roles`, `auth_sessions`, `auth_accounts`
+- Candidate data: `cv`, `cv_analysis`, `competence`, `user_skill`, `progression`, `objectif`
+- Opportunities: `opportunities`, `offre`, `saved_opportunity`, `application`
+- Matching: `matching_run`, `matching_result`
+- Notifications: `notification`, `user_notification`
+- Admin and operations: `audit_log`, `import_job`, `app_setting`, `rate_limit_bucket`
+- Billing/support: `plan_catalogue`, `billing_subscription`, `billing_invoice`, `support_ticket`
+- Files: `file_asset`
+
+Run migrations with:
 
 ```bash
 npm run migrate
 ```
 
-### 5. Ajouter les données initiales
+Seed data with:
 
 ```bash
 npm run seed
 ```
 
-En développement, le seed peut créer un admin local :
+## Common Commands
 
-```text
-Email: admin@theway.local
-Password: ChangeMe12345!
-```
-
-### 6. Lancer le projet
-
-Option simple sur Windows :
-
-```powershell
-.\start-dev.ps1
-```
-
-Ou lancer séparément :
-
-```bash
-npm run dev:api
-npm run dev:frontend
-```
-
-URLs locales :
-
-- Frontend : `http://localhost:5173`
-- API : `http://localhost:3001`
-- Health API : `http://localhost:3001/health`
-
-## Variables d'environnement
-
-Variables principales :
-
-| Variable | Description | Exemple |
-| --- | --- | --- |
-| `NODE_ENV` | Environnement | `development` |
-| `PORT` | Port API | `3001` |
-| `APP_BASE_URL` | URL backend | `http://localhost:3001` |
-| `CLIENT_BASE_URL` | URL frontend | `http://localhost:5173` |
-| `DB_HOST` | Host MySQL | `localhost` |
-| `DB_PORT` | Port MySQL | `3306` |
-| `DB_USER` | Utilisateur MySQL | `root` |
-| `DB_PASSWORD` | Mot de passe MySQL | vide en local possible |
-| `DB_NAME` | Nom base | `theway` |
-| `COOKIE_SECRET` | Secret cookies | requis en production |
-| `CSRF_SECRET` | Secret CSRF | requis en production |
-| `CORS_ORIGIN` | Origines autorisées | `https://app.example.com` |
-| `MAX_FILE_SIZE` | Taille upload max | `20971520` |
-| `STORAGE_DRIVER` | Stockage fichiers | `local` ou `s3` |
-| `LOCAL_UPLOAD_DIR` | Dossier uploads local | `storage/uploads` |
-| `AI_PROVIDER` | Provider IA optionnel | `openai`, `custom`, etc. |
-| `AI_API_KEY` | Clé IA optionnelle | secret |
-| `MAIL_PROVIDER` | Provider email | `smtp` |
-| `SMTP_HOST` | Serveur SMTP | `smtp.example.com` |
-| `BOOTSTRAP_ADMIN_EMAIL` | Admin initial | `admin@example.com` |
-| `BOOTSTRAP_ADMIN_PASSWORD` | Mot de passe admin initial | secret |
-
-En production, définir au minimum :
-
-- `DB_PASSWORD`
-- `COOKIE_SECRET`
-- `CSRF_SECRET`
-- `CORS_ORIGIN`
-- `APP_BASE_URL`
-- `CLIENT_BASE_URL`
-
-## Base de données
-
-Les fichiers SQL sont dans `database/`.
-
-Migrations :
-
-- `001_admin_tables.sql` : tables admin historiques.
-- `002_production_core.sql` : rôles, permissions, sessions, fichiers, sauvegardes, candidatures, CV analysis, matching, billing, settings, audit, imports.
-
-Tables métier principales :
-
-- `utilisateur`
-- `competence`
-- `user_skill`
-- `progression`
-- `cv`
-- `cv_analysis`
-- `opportunities`
-- `offre`
-- `saved_opportunity`
-- `application`
-- `matching_run`
-- `matching_result`
-- `notification`
-- `support_ticket`
-- `roles`
-- `permissions`
-- `user_roles`
-- `billing_subscription`
-- `billing_invoice`
-- `plan_catalogue`
-- `audit_log`
-
-## Commandes utiles
-
-Depuis la racine :
+Root scripts:
 
 ```bash
 npm run dev:api
@@ -408,328 +285,305 @@ npm run migrate
 npm run seed
 ```
 
-Depuis `API/` :
+Backend scripts:
 
 ```bash
-npm run dev
-npm start
-npm run migrate
-npm run seed
-npm run build
-npm run lint
-npm run typecheck
-npm test
-npm run test:e2e
+npm --prefix API run dev
+npm --prefix API start
+npm --prefix API run migrate
+npm --prefix API run seed
+npm --prefix API run build
+npm --prefix API run lint
+npm --prefix API run typecheck
+npm --prefix API test
+npm --prefix API run test:e2e
 ```
 
-Depuis `frontend-react/` :
+Frontend scripts:
 
 ```bash
-npm run dev
-npm run build
-npm run preview
+npm --prefix frontend-react run dev
+npm --prefix frontend-react run build
+npm --prefix frontend-react run preview
 ```
 
-## Routes frontend
+## Frontend Routes
 
-Publiques :
+Public:
 
-- `/` : landing page moderne avec login/register.
-- `/login` : connexion.
-- `/register` : inscription.
+- `/` - landing/index page
+- `/login` - login
+- `/register` - account creation
 
-Espace candidat :
+Candidate:
 
-- `/dashboard` : dashboard candidat.
-- `/opportunities` : recherche et offres.
-- `/opportunities/:id` : détail offre.
-- `/skills` : compétences et progression.
-- `/cv` : upload et analyse CV.
-- `/matching` : matching candidat/offres.
-- `/settings` : paramètres utilisateur.
+- `/dashboard` - candidate dashboard
+- `/opportunities` - opportunity search
+- `/opportunities/:id` - opportunity detail
+- `/skills` - skill management
+- `/cv` - CV upload and analysis
+- `/matching` - matching runs and results
+- `/settings` - profile and account settings
 
-Espace admin :
+Admin:
 
-- `/admin` : dashboard admin.
-- `/admin/users` : utilisateurs.
-- `/admin/offers` : offres.
-- `/admin/skills` : compétences admin.
-- `/admin/support` : support.
-- `/admin/billing` : billing.
-- `/admin/settings` : rôles et paramètres.
+- `/admin` - admin dashboard
+- `/admin/users` - users
+- `/admin/offers` - offers
+- `/admin/skills` - skills
+- `/admin/support` - support tickets
+- `/admin/billing` - plans, invoices, subscriptions
+- `/admin/settings` - roles and admin settings
 
-## API backend
+## API Overview
 
-### Auth
+Most API responses use this shape:
 
-| Méthode | Endpoint | Description |
+```json
+{
+  "ok": true,
+  "data": {}
+}
+```
+
+Frontend API clients normalize this through `frontend-react/src/api/client.js`.
+
+Authentication:
+
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/auth/session` | Lire la session courante |
-| `POST` | `/api/auth/register` | Créer un compte |
-| `POST` | `/api/auth/login` | Se connecter |
-| `POST` | `/api/auth/logout` | Se déconnecter |
-| `POST` | `/api/auth/password-reset/request` | Demander reset password |
-| `POST` | `/api/auth/password-reset/confirm` | Confirmer reset password |
+| `GET` | `/api/auth/session` | Current user, auth state, CSRF token |
+| `POST` | `/api/auth/register` | Create account |
+| `POST` | `/api/auth/login` | Start session |
+| `POST` | `/api/auth/logout` | End session |
+| `POST` | `/api/auth/password-reset/request` | Request password reset |
+| `POST` | `/api/auth/password-reset/confirm` | Complete password reset |
+| `GET` | `/api/auth/oauth/:provider/start` | Start OAuth login |
+| `GET` | `/api/auth/oauth/:provider/callback` | OAuth callback |
 
-### Profil et compte
+Candidate profile:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/profile` | Profil utilisateur |
-| `PUT` | `/api/profile` | Mettre à jour profil |
-| `PUT` | `/api/account/password` | Changer mot de passe |
-| `PUT` | `/api/account/email` | Changer email |
-| `GET` | `/api/settings/user` | Lire paramètres user |
-| `PUT` | `/api/settings/user` | Modifier paramètres user |
+| `GET` | `/api/profile` | Current profile |
+| `PUT` | `/api/profile` | Update profile |
+| `PUT` | `/api/account/password` | Change password |
+| `PUT` | `/api/account/email` | Change email |
+| `GET` | `/api/settings/user` | User settings |
+| `PUT` | `/api/settings/user` | Update user settings |
 
-### Opportunités
+Opportunities and applications:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/opportunities` | Liste opportunités |
-| `GET` | `/api/opportunities/:id` | Détail opportunité |
-| `POST` | `/api/opportunities/:id/bookmark` | Sauvegarder offre |
-| `DELETE` | `/api/opportunities/:id/bookmark` | Retirer sauvegarde |
-| `POST` | `/api/opportunities/:id/applications` | Postuler |
+| `GET` | `/api/opportunities` | Search/list opportunities |
+| `GET` | `/api/opportunities/:id` | Opportunity detail |
+| `POST` | `/api/opportunities/:id/bookmark` | Save opportunity |
+| `DELETE` | `/api/opportunities/:id/bookmark` | Remove saved opportunity |
+| `POST` | `/api/opportunities/:id/applications` | Apply to opportunity |
 
-### Compétences
+Skills and objectives:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/skills` | Liste compétences utilisateur |
-| `POST` | `/api/skills` | Ajouter compétence |
-| `PUT` | `/api/skills/:id` | Modifier compétence |
-| `DELETE` | `/api/skills/:id` | Supprimer compétence |
+| `GET` | `/api/skills` | User skills |
+| `POST` | `/api/skills` | Add skill |
+| `PUT` | `/api/skills/:id` | Update skill |
+| `DELETE` | `/api/skills/:id` | Delete skill |
+| `GET` | `/api/objectives` | User objectives |
+| `POST` | `/api/objectives` | Create objective |
+| `PUT` | `/api/objectives/:id` | Update objective |
+| `DELETE` | `/api/objectives/:id` | Delete objective |
 
-### CV et fichiers
+CV, files, matching, and AI:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
 | `POST` | `/api/cv` | Upload CV |
-| `GET` | `/api/cv/current` | CV courant |
-| `POST` | `/api/cv/:id/analyse` | Analyser CV |
-| `POST` | `/api/files/presign` | Préparer upload fichier |
-| `POST` | `/api/files/:id/content` | Envoyer contenu fichier |
-| `POST` | `/api/files/complete` | Marquer upload terminé |
-| `GET` | `/api/files/:id` | Télécharger/afficher fichier |
-| `DELETE` | `/api/files/:id/delete` | Supprimer fichier |
+| `GET` | `/api/cv/current` | Latest CV |
+| `POST` | `/api/cv/:id/analyse` | Analyze CV with AI service |
+| `POST` | `/api/files/presign` | Create file asset/upload intent |
+| `POST` | `/api/files/:id/content` | Upload file content |
+| `POST` | `/api/files/complete` | Complete file upload |
+| `GET` | `/api/files/:id` | Read/download file |
+| `DELETE` | `/api/files/:id/delete` | Delete file |
+| `POST` | `/api/matching/run` | Run opportunity matching |
+| `GET` | `/api/matching` | Latest matching results |
+| `GET` | `/api/matching/:id` | Matching result detail |
+| `POST` | `/api/ai/coach` | AI career coach tips |
 
-### Matching
+Notifications, support, billing:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `POST` | `/api/matching/run` | Lancer matching |
-| `GET` | `/api/matching` | Liste runs/résultats |
-| `GET` | `/api/matching/:id` | Détail matching |
+| `GET` | `/api/notifications` | User notifications |
+| `PUT` | `/api/notifications/:id` | Mark notification read/unread |
+| `GET` | `/api/support/tickets` | User support tickets |
+| `POST` | `/api/support/tickets` | Create support ticket |
+| `POST` | `/api/billing/upgrade-request` | Request plan upgrade |
+| `GET` | `/api/plans` | Public plans |
 
-### Notifications, support et billing
+Admin:
 
-| Méthode | Endpoint | Description |
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| `GET` | `/api/notifications` | Notifications utilisateur |
-| `PUT` | `/api/notifications/:id` | Marquer notification |
-| `GET` | `/api/support/tickets` | Tickets utilisateur |
-| `POST` | `/api/support/tickets` | Créer ticket |
-| `POST` | `/api/billing/upgrade-request` | Demander upgrade |
-| `GET` | `/api/plans` | Plans disponibles |
+| `GET` | `/api/admin/dashboard` | Admin totals, recent opportunities, import jobs, audit activity |
+| `GET` | `/api/admin/users` | List users |
+| `POST` | `/api/admin/users` | Create user |
+| `PUT` | `/api/admin/users/:id` | Update user |
+| `DELETE` | `/api/admin/users/:id` | Delete user |
+| `GET` | `/api/admin/offers` | List offers |
+| `POST` | `/api/admin/offers` | Create offer |
+| `PUT` | `/api/admin/offers/:id` | Update offer |
+| `DELETE` | `/api/admin/offers/:id` | Delete offer |
+| `GET` | `/api/admin/skills` | List admin skills |
+| `POST` | `/api/admin/skills` | Create skill |
+| `PUT` | `/api/admin/skills/:id` | Update skill |
+| `DELETE` | `/api/admin/skills/:id` | Delete skill |
+| `GET` | `/api/admin/support` | List support tickets |
+| `POST` | `/api/admin/support` | Create support ticket |
+| `PUT` | `/api/admin/support/:id` | Update support ticket |
+| `DELETE` | `/api/admin/support/:id` | Delete support ticket |
+| `GET` | `/api/admin/roles` | Roles and permissions |
+| `PUT` | `/api/admin/roles/:role/permissions` | Update role permissions |
+| `GET` | `/api/admin/invoices` | List invoices |
+| `GET` | `/api/admin/invoices/:id/download` | Download invoice text |
+| `GET` | `/api/admin/notifications` | List notifications |
+| `POST` | `/api/admin/notifications` | Create notification |
+| `PUT` | `/api/admin/notifications/:id` | Update notification |
+| `DELETE` | `/api/admin/notifications/:id` | Delete notification |
+| `GET` | `/api/admin/subscriptions` | List subscriptions |
+| `POST` | `/api/admin/subscriptions` | Create subscription |
+| `PUT` | `/api/admin/subscriptions/:id` | Update subscription |
+| `DELETE` | `/api/admin/subscriptions/:id` | Delete subscription |
+| `GET` | `/api/admin/enterprises` | List enterprises |
+| `GET` | `/api/admin/analytics` | Admin analytics |
+| `GET` | `/api/docs/openapi.json` | Minimal OpenAPI document |
 
-### Admin
+## AI Features
 
-| Méthode | Endpoint | Description |
-| --- | --- | --- |
-| `GET` | `/api/admin/dashboard` | Dashboard admin |
-| `GET` | `/api/admin/users` | Liste utilisateurs |
-| `POST` | `/api/admin/users` | Créer utilisateur |
-| `PUT` | `/api/admin/users/:id` | Modifier utilisateur |
-| `DELETE` | `/api/admin/users/:id` | Supprimer utilisateur |
-| `GET` | `/api/admin/offers` | Liste offres admin |
-| `POST` | `/api/admin/offers` | Créer offre |
-| `PUT` | `/api/admin/offers/:id` | Modifier offre |
-| `DELETE` | `/api/admin/offers/:id` | Supprimer offre |
-| `GET` | `/api/admin/skills` | Skills admin |
-| `POST` | `/api/admin/skills` | Créer skill |
-| `PUT` | `/api/admin/skills/:id` | Modifier skill |
-| `DELETE` | `/api/admin/skills/:id` | Supprimer skill |
-| `GET` | `/api/admin/support` | Tickets support |
-| `POST` | `/api/admin/support` | Créer ticket admin |
-| `PUT` | `/api/admin/support/:id` | Modifier ticket |
-| `DELETE` | `/api/admin/support/:id` | Supprimer ticket |
-| `GET` | `/api/admin/subscriptions` | Subscriptions |
-| `GET` | `/api/admin/settings` | Settings admin |
-| `PUT` | `/api/admin/settings` | Modifier settings admin |
-| `GET` | `/api/admin/roles` | Rôles |
-| `PUT` | `/api/admin/roles/:role/permissions` | Permissions rôle |
-| `GET` | `/api/docs/openapi.json` | Documentation OpenAPI |
+The AI service is implemented in `API/services/aiService.js`.
 
-## Sécurité
+Current functions:
 
-La plateforme inclut :
+- `analyseCvText(text)`: extracts summary and skills from CV text.
+- `rankOpportunities(profile)`: ranks opportunities for the candidate.
+- `coachSuggestions(profile)`: returns concise career tips for the dashboard coach.
 
-- Sessions HTTP-only avec `express-session`.
-- Store session MySQL.
-- Hash mot de passe avec Argon2.
-- Protection CSRF.
-- CORS contrôlé par environnement.
-- Helmet pour headers de sécurité.
-- Rate limiting par type d'action.
-- Rôles et permissions.
-- Middleware admin pour les routes sensibles.
-- Audit log pour les actions importantes.
-- Validation côté API avec Zod et validations Express.
+When configured with a real provider, the service sends JSON-mode chat completion requests to the configured provider. In local/mock/test mode it returns deterministic fallback results so the app remains usable without an external API key.
 
-Bonnes pratiques production :
+## Admin Operations
 
-- Utiliser HTTPS.
-- Définir `COOKIE_SECRET` et `CSRF_SECRET` forts.
-- Restreindre `CORS_ORIGIN`.
-- Utiliser un utilisateur MySQL dédié.
-- Activer backups base de données.
-- Stocker les fichiers sensibles sur S3 ou stockage compatible.
-- Ne jamais commiter `.env`.
+The admin dashboard reads real operational tables:
 
-## Stockage des fichiers
+- `audit_log` powers the recent activity timeline.
+- `import_job` powers scraper/import status.
+- `opportunities` and `offre` power recent offer lists and quality checks.
+- `notification` powers latest platform notifications.
 
-TheWay supporte :
+Important actions in production routes call `audit()` from `API/services/auditService.js`.
 
-- Stockage local : `storage/uploads`
-- Stockage S3 via variables `S3_*`
+## Files and Storage
 
-Types autorisés par défaut :
+The storage service supports local storage and S3-compatible storage.
 
-- PDF
-- DOC / DOCX
-- PNG / JPG / JPEG / WEBP
-- CSV
-- TXT
+Common file flows:
 
-Usage actuel :
+- CV upload through `/api/cv`.
+- Generic file upload through `/api/files/*`.
+- CV text extraction through `pdf-parse` and `mammoth`.
 
-- Upload CV.
-- Upload photo profil.
-- Téléchargement fichiers via `/api/files/:id`.
+Local uploads are stored under `storage/` by default. Do not commit uploaded user files.
 
-## Scraping opportunités
+## Scraping and Imports
 
-Le fichier `scraping.py` sert à collecter ou préparer des opportunités externes.
+`scraping.py` is the project-level helper for collecting or preparing external opportunities.
 
-Les données importées peuvent être stockées dans :
+Imported jobs should write operational status to `import_job`:
 
-```text
-assets/uploads/files/opportunities.json
-assets/uploads/files/opportunities.csv
-```
+- `source`
+- `status`
+- `imported_count`
+- `error_message`
+- `completed_at`
 
-L'objectif est d'alimenter le catalogue d'opportunités utilisé par :
+The admin dashboard reads the latest rows to show real scraper/import status.
 
-- la page opportunités,
-- le matching,
-- les insights marché,
-- les widgets admin de qualité.
+## Security
 
-## Tests et qualité
+Security controls in the API include:
 
-Backend :
+- HTTP-only session cookies.
+- MySQL-backed sessions.
+- Argon2 password hashing.
+- CSRF protection for state-changing requests.
+- CORS configuration.
+- Helmet security headers.
+- Role and admin middleware.
+- Rate limiting by action bucket.
+- Audit logging for important actions.
+- Upload controls and storage abstraction.
 
-- Unit tests : `API/tests/unit`
-- Integration tests : `API/tests/integration`
-- E2E tests : `API/tests/e2e`
-- Scripts qualité : lint, typecheck, static check
+Production checklist:
 
-Commandes :
+- Use HTTPS.
+- Set strong `COOKIE_SECRET` and `CSRF_SECRET`.
+- Restrict `CORS_ORIGIN` to the deployed frontend.
+- Use a least-privilege MySQL user.
+- Back up MySQL and uploaded files.
+- Do not commit `.env` or user uploads.
+- Configure email and AI providers with real secrets outside git.
 
-```bash
-cd API
-npm test
-npm run test:e2e
-npm run lint
-npm run typecheck
-npm run build
-```
+## Quality Checks
 
-Frontend :
+Backend:
 
 ```bash
-cd frontend-react
-npm run build
+npm --prefix API run build
+npm --prefix API run lint
+npm --prefix API run typecheck
+npm --prefix API test
 ```
 
-## Déploiement
-
-### Backend
-
-1. Installer dépendances en production.
-2. Configurer variables d'environnement.
-3. Exécuter migrations.
-4. Exécuter seed si nécessaire.
-5. Démarrer `node server.js` derrière un reverse proxy.
-
-Exemple :
+Frontend:
 
 ```bash
-cd API
-npm ci --omit=dev
-npm run migrate
-npm run seed
-npm start
+npm run build:frontend
 ```
 
-### Frontend
+End-to-end tests:
 
 ```bash
-cd frontend-react
-npm ci
-npm run build
+npm --prefix API run test:e2e
 ```
 
-Le dossier généré est :
+## Deployment Notes
 
-```text
-frontend-react/dist
+Backend deployment:
+
+```bash
+npm --prefix API ci --omit=dev
+npm --prefix API run migrate
+npm --prefix API run seed
+npm --prefix API start
 ```
 
-Il peut être servi par Nginx, Apache, Vercel, Netlify ou un serveur statique.
+Frontend deployment:
 
-### Production checklist
+```bash
+npm --prefix frontend-react ci
+npm --prefix frontend-react run build
+```
 
-- Domaine frontend configuré.
-- Domaine API configuré.
-- `CLIENT_BASE_URL` et `APP_BASE_URL` corrects.
-- `CORS_ORIGIN` limité au frontend.
-- Secrets forts.
-- MySQL sécurisé.
-- Backups activés.
-- Logs monitorés.
-- Limites upload vérifiées.
-- S3 configuré si stockage distant.
+Serve `frontend-react/dist` from a static host or reverse proxy. Run the API behind a process manager or platform service. Make sure `APP_BASE_URL`, `CLIENT_BASE_URL`, cookies, CORS, and HTTPS all agree.
 
-## Roadmap
+## Current Gaps
 
-Améliorations produit possibles :
+Known areas to improve:
 
-- Paiement réel Stripe ou autre provider.
-- IA conversationnelle complète pour `AIJobCoachWidget`.
-- Scraping planifié avec suivi des sources.
-- Score ATS plus avancé.
-- Recommandations de formations pour combler les skill gaps.
-- Emails transactionnels pour matching, support, billing.
-- Tableaux de bord recruteurs.
-- Import LinkedIn.
-- OpenAPI enrichi et Swagger UI.
-- Tests frontend avec Playwright.
-- Docker Compose pour API, frontend et MySQL.
-
-## Résumé
-
-TheWay est un SaaS CareerTech complet avec :
-
-- une landing page moderne,
-- un espace candidat,
-- un espace administrateur,
-- une API sécurisée,
-- une base MySQL structurée,
-- des uploads CV/photo,
-- un système de matching,
-- des widgets de progression,
-- des fonctions support et billing.
-
-Le projet est prêt à évoluer vers une plateforme SaaS commercialisable avec abonnements, IA plus poussée, monitoring et déploiement cloud.
+- Expand the generated OpenAPI document beyond the current minimal route list.
+- Add frontend automated tests.
+- Add Docker Compose for local MySQL/API/frontend orchestration.
+- Add scheduled import jobs around `scraping.py`.
+- Add a complete conversational coach experience beyond dashboard tips.
+- Add real payment provider integration if subscriptions move beyond admin-managed records.
