@@ -1,7 +1,7 @@
 .shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 264px 1fr;
+  grid-template-columns: 272px 1fr;
   background: var(--surface);
 }
 
@@ -12,12 +12,21 @@
 .main {
   min-width: 0;
   display: grid;
-  grid-template-rows: 64px 1fr;
+  grid-template-rows: 68px 1fr;
 }
 
 .content {
   min-width: 0;
-  padding: 24px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 32px 40px;
+}
+
+@media (max-width: 1100px) {
+  .content {
+    padding: 24px;
+  }
 }
 
 @media (max-width: 900px) {

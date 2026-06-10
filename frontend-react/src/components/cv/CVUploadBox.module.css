@@ -2,9 +2,22 @@
   display: grid;
   gap: 12px;
   justify-items: start;
+  border-style: dashed;
+  border-color: var(--border-strong);
+  background: var(--surface);
 }
 
 .box h3,
 .box p {
   margin: 0;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-soft);
+  color: var(--primary-hover);
 }

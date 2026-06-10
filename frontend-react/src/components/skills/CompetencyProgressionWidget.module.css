@@ -75,8 +75,9 @@
   gap: 4px;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: #fff;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
 .stage span {
@@ -128,8 +129,9 @@
   gap: 9px;
   padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: #fff;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
 .skillItem strong,

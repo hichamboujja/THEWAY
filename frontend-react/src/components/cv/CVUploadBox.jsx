@@ -25,7 +25,7 @@ export default function CVUploadBox({ onUploaded }) {
 
   return (
     <Card className={styles.box}>
-      <UploadCloud size={32} />
+      <span className={styles.icon}><UploadCloud size={26} /></span>
       <h3>Importer un CV</h3>
       <p>PDF, DOC ou DOCX selon la configuration backend.</p>
       <input ref={inputRef} type="file" accept=".pdf,.doc,.docx" onChange={(event) => setFile(event.target.files?.[0] || null)} />

@@ -9,7 +9,7 @@
   color: var(--text-muted);
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
 }
 
 .state h3 {
@@ -41,7 +41,7 @@
   color: #b91c1c;
   background: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
 }
 
 .inlineError h3 {

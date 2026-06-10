@@ -8,3 +8,14 @@
 .card p {
   margin: 0;
 }
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--secondary-light);
+  color: var(--secondary);
+}

@@ -77,7 +77,7 @@ async function loadDashboardData() {
 function QuickCard({ icon: Icon, title, to }) {
   return (
     <Card className={styles.quick}>
-      <Icon size={24} />
+      <span className={styles.quickIcon}><Icon size={22} /></span>
       <h3>{title}</h3>
       <Button as={Link} to={to} variant="secondary">Ouvrir</Button>
     </Card>

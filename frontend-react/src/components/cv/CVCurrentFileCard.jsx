@@ -9,7 +9,7 @@ export default function CVCurrentFileCard({ cv }) {
 
   return (
     <Card className={styles.card}>
-      <FileText size={24} />
+      <span className={styles.icon}><FileText size={22} /></span>
       <div>
         <h3>{current.fichier || current.filename || current.name || 'CV actuel'}</h3>
         <p>{current.date_upload || current.created_at || 'Date non disponible'}</p>

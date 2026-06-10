@@ -1,7 +1,8 @@
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   padding: 20px;
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
 }
